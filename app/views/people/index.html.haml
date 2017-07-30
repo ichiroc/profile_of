@@ -1,25 +1,18 @@
-%h1 Listing people
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Score
-      %th Magnitude
-      %th
-      %th
-      %th
-
-  %tbody
-    - @people.each do |person|
-      %tr
-        %td= person.name
-        %td= person.score
-        %td= person.magnitude
-        %td= link_to 'Show', person
-        %td= link_to 'Edit', edit_person_path(person)
-        %td= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Person', new_person_path
+.row
+  - @people.each do |person|
+    .col-md-4
+      .card
+        .card-block
+          .card-title
+            %img{ src: 'https://dummyimage.com/100x100'}
+            %h2{style: 'display:inline'}= person.name
+          .card-text
+            %dl
+              - person.sources.each do |source|
+                %dt
+                  = source.provider
+                %dd
+                  = source.texts.first&.body&.split("\n")&.first
+            %p
+              = link_to 'Edit', edit_person_path(person)
+              = link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }

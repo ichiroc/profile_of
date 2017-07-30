@@ -4,15 +4,20 @@
 #
 #  id         :integer          not null, primary key
 #  provider   :string
-#  token      :string
-#  secret     :string
 #  person_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  account    :string
+#  score      :float
+#  magnitude  :float
 #
 # Indexes
 #
 #  index_sources_on_person_id  (person_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (person_id => people.id)
 #
 
 require 'rails_helper'

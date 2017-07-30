@@ -8,8 +8,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', "~> 1.3.13"
 # Use Puma as the app server
 gem 'puma', '~> 3.9.1'
 # Use SCSS for stylesheets
@@ -56,7 +54,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'haml-rails', "~> 1.0.0"
 gem 'kaminari', "~> 1.0.1"
 gem 'simple_form', "~> 3.5.0"
-gem 'twitter-bootstrap-rails', "~> 4.0.0"
+gem 'bootstrap'
 group :development, :test do
   gem 'annotate', "~> 2.7.2"
   gem 'better_errors', "~> 2.1.1"
@@ -75,9 +73,14 @@ end
 
 gem 'therubyracer'
 
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'omniauth-github'
+gem 'pg'
 gem 'twitter'
 gem 'octokit'
 gem 'feedbag'
+gem 'carrierwave'
+gem 'default_value_for'
+gem 'sanitize'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.3.3'
+end

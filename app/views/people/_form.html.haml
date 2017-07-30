@@ -3,8 +3,13 @@
 
   .form-inputs
     = f.input :name
-    = f.input :score
-    = f.input :magnitude
+
+    - @person.sources.each do |source|
+      = f.fields_for :sources, source do |ff|
+        %p
+          = source&.provider&.capitalize
+          = ff.input :provider, as: :hidden
+          = ff.input :account
 
   .form-actions
     = f.button :submit

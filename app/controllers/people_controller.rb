@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_person, only: %i(show edit update destroy)
 
   # GET /people
   # GET /people.json
@@ -15,6 +15,9 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    @person.sources.build(provider: :twitter)
+    @person.sources.build(provider: :github)
+    @person.sources.build(provider: :blog)
   end
 
   # GET /people/1/edit
@@ -28,6 +31,9 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
+        @person.sources.each do |source|
+          FetchTextsJob.perform_later(source)
+        end
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
       else
@@ -69,6 +75,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:name, :score, :magnitude)
+      params.require(:person).permit(:name, :score, :magnitude, sources_attributes: [:provider, :account])
     end
 end

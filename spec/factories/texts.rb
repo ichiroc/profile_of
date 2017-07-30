@@ -9,10 +9,15 @@
 #  source_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  text_type  :integer
 #
 # Indexes
 #
 #  index_texts_on_source_id  (source_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (source_id => sources.id)
 #
 
 FactoryGirl.define do

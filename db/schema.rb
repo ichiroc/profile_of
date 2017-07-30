@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728015228) do
+ActiveRecord::Schema.define(version: 20170728060235) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "entities", force: :cascade do |t|
-    t.string "type"
+    t.string "entity_type"
     t.float "salience"
     t.string "name"
-    t.integer "text_id"
+    t.bigint "text_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["text_id"], name: "index_entities_on_text_id"
@@ -32,11 +35,12 @@ ActiveRecord::Schema.define(version: 20170728015228) do
 
   create_table "sources", force: :cascade do |t|
     t.string "provider"
-    t.string "token"
-    t.string "secret"
-    t.integer "person_id"
+    t.bigint "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "account"
+    t.float "score"
+    t.float "magnitude"
     t.index ["person_id"], name: "index_sources_on_person_id"
   end
 
@@ -44,10 +48,14 @@ ActiveRecord::Schema.define(version: 20170728015228) do
     t.text "body"
     t.float "score"
     t.float "magnitude"
-    t.integer "source_id"
+    t.bigint "source_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "text_type"
     t.index ["source_id"], name: "index_texts_on_source_id"
   end
 
+  add_foreign_key "entities", "texts"
+  add_foreign_key "sources", "people"
+  add_foreign_key "texts", "sources"
 end

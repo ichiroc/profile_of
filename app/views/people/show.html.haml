@@ -4,8 +4,17 @@
   %b Name:
   = @person.name
 %p
-  %b Score:
-  = @person.score
+  %b Twitter:
+  = @person.twitter.score
+  = @person.twitter.magnitude
+%p
+  %b Github:
+  = @person.github.score
+  = @person.github.magnitude
+%p
+  %b Blog:
+  = @person.blog.score
+  = @person.blog.magnitude
 %p
   %b Magnitude:
   = @person.magnitude
